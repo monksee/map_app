@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html data-ng-app="mapModule" >
+<head>
+<meta charset="utf-8">
+<!--specify user scalable as no, in order to mimick a native app-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<script>
+/*
+ * In order to determine (throughout our application) whether the google maps script/API has loaded properly
+ * we create a global variable called mapsApiIsLoaded which we set to true when the callback to the script loading
+ * is executed.
+ * It is important to check whether the API has loaded before doing any processing with the "google" object as otherwise
+ * we will get a "google" is undefined error which (after testing i've discovered) will break the app.
+ * (Note: A case where the script does not load would be if a user is not connected to the internet when they initially open the app)
+ */
+var mapsApiIsLoaded = false;
+
+window.mapsCallback = function () {
+    mapsApiIsLoaded = true;
+};
+</script>
+<script src="js/marker-clusterer.js"></script>
+ 
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyAq3rgVX-gPP-1TWmUBER0f_E_tzGO_6Ng&callback=mapsCallback"></script>
+
+<script src="js/angular.min.js"></script>
+<script src="js/angular-route.min.js"></script>
+<script src="js/angular-touch.min.js"></script>
+
+<script src="js/angular-animate.min.js"></script>
+<script src="js/angular-sanitize.js"></script>
+<script src="phonegap.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/index.css"/>	
+<link rel="stylesheet" type="text/css" href="css/header.css"/>	
+<link rel="stylesheet" type="text/css" href="css/map.css"/>	
+<link rel="stylesheet" type="text/css" href="css/bottom_panel.css"/>	
+<link rel="stylesheet" type="text/css" href="css/station_and_reviews.css"/>	
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>	
+
+</head>
+<body data-ng-controller="mainController">
+	<!--use the html5 header tag-->
+	<header>
+		<ul class="header_nav" data-ng-class="{'swipe_left': panelIsOpen == true}" data-ng-show="!detectLoginView()">
+			<li class="header_menu_item" data-ng-click="goBack()">
+				<span id="back_header_link" class="header_menu_link normal_link"><i class="fa fa-arrow-left"></i></span>
+			</li>
+        	<li class="header_menu_item navicon" data-ng-click="toggleSidePanel()">
+				<span class="header_menu_link" data-ng-class="{'current': panelIsOpen == true}">
+					<i class="fa fa-navicon"></i>
+				</span>
+			</li>  	  
+       	</ul><!--/header_nav-->		
+	</header>
+
+	<div id="container_wrapper" 
+	    data-ng-class="{'scrollable': !detectHomeView(), 'swipe_left': panelIsOpen == true}" 
+	    data-ng-swipe-left="(!detectHomeView() ? panelIsOpen = true : '')">
+	    <div class="container">
+            <div id="login_info_area" data-ng-show="showUserProfileArea()">
+			   <span class="user_profile_name">Hi {{userDetails.facebookName}}</span> 
+			</div>
+			<!--hide the map_area when we are not on the home view-->
+			<div id="map_area" data-ng-class="{'hide_element': detectHomeView() == false}">
+			    <!--instead of using ng-show on the "map" element (i.e in order to show the map when we are on the "home" route), 
+			        we use the ng-class directive. This is because when using the ng-show directive it was causing problems when loading
+			        the google map to the "map" element (due to the display: none feature of ng-show)
+			        (i.e tiles of the map were not displaying properly when the map was first loaded). ng-class solves this.
+			    -->
+			    <div id="map" data-ng-class="{'hide_element': mapLoadedSuccessfully == false}"></div>
+			    <!--show the "map is loading" area while the map is trying to load-->
+			    <div id="map_is_loading" data-ng-show="mapIsLoading">
+                    <p class="map_area_text" data-ng-show="mapIsLoading">Loading map...</p>
+                  
+                </div>
+                <!--show the map error when the map has not loaded successfully (but not while it is trying to load)-->
+                <div id="map_error" data-ng-show="mapLoadedSuccessfully == false && !mapIsLoading">
+			        <p class="map_area_text">Error loading map!</p>
+                    <!--create a button so that the user can manually try and load the map again i.e in a case were they turn their internet on after being disconnected-->
+                    <div id="refresh_map_button" data-ng-click="refreshMap()">
+			            <i class="fa fa-refresh"></i>
+			        </div>
+			    </div>
+			</div>
+        </div> 
+        <!--When we are on the "home" route (i.e when the map is displayed), the view will act as a container for our bottom panel-->
+	    <div data-ng-view class="view" data-ng-class="{'bottom_panel_container': detectHomeView()}">
+	    
+			<!--our individual views will be displayed here-->
+		</div> 
+	</div><!--/container_wrapper-->
+
+    <!--A side panel area (containing a nav menu) which is visible when the container_wrapper is swiped to the left or the navicon is pressed-->
+	<div id="panel_area" class="scrollable" data-ng-swipe-right="panelIsOpen = false">		
+		<div class="panel_container">
+			<div class="panel_header"> 
+			    <!--show the user profile details if showUserProfileArea() returns true, 
+			    (i.e if the current view is not the "login" view and also if the user is currently logged in
+			    -->
+			    <div data-ng-show="showUserProfileArea()">
+			        <span class="user_profile_pic">
+			            <img src="{{userDetails.profilePicURL}}" data-ng-class="{'profile_pic_size': checkIfLoggedIn() == true}" alt="">
+			        </span> 
+			        <span class="user_profile_name">{{userDetails.facebookName}}</span> 
+			    </div>
+			</div>
+			<ul>
+				<!--when any link is clicked we want to slide the main container back over to main focus so we call the toggleSidePanel() function to achieve this-->
+				<!--we also call the selectMenuItem() function so that we can style the new current nav item in the header of the app-->
+			    <li class="side_menu_item">
+					<a class="side_menu_link normal_link" href="#home" data-ng-click="toggleSidePanel();selectMenuItem($index)">
+						<i class="panel_icon fa fa-home"></i>Home<i class="fa fa-chevron-right"></i>
+					</a>
+					
+				</li>
+				<!--only show the following link to the login view if the user is not logged in.-->
+				<li class="side_menu_item" data-ng-show="!checkIfLoggedIn()">
+					<a class="side_menu_link normal_link" href="#login" data-ng-click="toggleSidePanel();selectMenuItem($index)">
+						<i class="panel_icon fa fa-home"></i>Login<i class="fa fa-chevron-right"></i>
+					</a>
+					
+				</li>
+				<li class="side_menu_item">
+					<a class="side_menu_link" data-ng-click="goToExternalLink($event)" href="http://www.gamuzic.com">
+						<i class="panel_icon fa fa-external-link"></i>Open our website<i class="fa fa-chevron-right"></i>
+					</a>
+					
+				</li>
+				<!--only show the following link for the user to log out if the user is logged in.-->
+				<li class="side_menu_item" data-ng-show="checkIfLoggedIn()">
+					<span class="side_menu_link normal_link" data-ng-click="toggleSidePanel();logOut()">
+						<i class="panel_icon fa fa-power-off"></i>Log Out<i class="fa fa-chevron-right"></i>
+					</span>
+					
+				</li>
+			</ul>
+		</div><!--/panel_container-->
+	</div><!--/panel_area-->
+<script>
+document.addEventListener('pause', function () {
+//alert('pause fired');
+}, false);
+document.addEventListener('resume', function () {
+// alert('resume fired');
+}, false);
+
+</script>
+
+<script src="modules/mapApp.js"></script>
+<script src="routes/routes.js"></script>
+<script src="factories/appFactory.js"></script>
+<script src="factories/phonegapReadyFactory.js"></script>
+<script src="factories/validatorFactory.js"></script>
+
+<script src="factories/sharedFactory.js"></script>
+<script src="factories/facebookFactory.js"></script>
+<script src="factories/userFactory.js"></script>
+
+<script src="factories/reviewFactory.js"></script>
+<script src="factories/geolocationFactory.js"></script>
+<script src="factories/stationFactory.js"></script>
+
+
+<script src="controllers/mainController.js"></script>
+<script src="controllers/loginController.js"></script>
+<script src="controllers/homeController.js"></script>
+<script src="controllers/stationController.js"></script>
+
+</body>
+</html>

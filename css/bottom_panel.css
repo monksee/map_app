@@ -1,0 +1,238 @@
+/**********************************************************
+* Author: Sarah Monks
+* 
+* CSS styling for the bottom panel
+*
+***********************************************************/
+
+#bottom_panel, .bottom_panel{
+position: absolute !important;
+bottom: -70%;
+left: 0px;
+z-index: 50;
+width:100%;
+height: 80%;
+overflow: hidden;
+background: #fff;
+-webkit-transition: .6s; /* Android 2.1+, Chrome 1-25, iOS 3.2-6.1, Safari 3.2-6  */
+-moz-transition: .6s;
+-o-transition: .6s;
+transition: .6s;  /* Chrome 26, Firefox 16+, iOS 7+, IE 10+, Opera, Safari 6.1+  */
+-webkit-box-shadow: 0px -2px 6px 0px rgba(61, 59, 59, 0.5);
+-moz-box-shadow:    0px -2px 6px 0px rgba(61, 59, 59, 0.5);
+box-shadow:         0px -2px 6px 0px rgba(61, 59, 59, 0.5);
+}
+
+.reset_box_shadow{
+
+-webkit-box-shadow: none !important;
+-moz-box-shadow:    none !important;
+box-shadow:         none !important;	
+}
+
+#header_of_bottom_panel{
+position: absolute;
+top: 0px;
+left: 0px;
+padding: 0px !important;
+width: 100%;
+z-index: 35;
+background: #e3e3e3;
+}
+
+#header_button_area{
+position: relative;
+overflow: hidden;
+}
+
+#header_nav_area{
+position: relative;
+
+}
+
+.toggle_bottom_panel_button{
+display: block;
+position: relative;
+float: right;
+width: 30px;
+height: 30px;
+cursor: pointer;
+text-align: center;
+}
+
+.toggle_bottom_panel_button i {
+font-size: 22px;
+}
+
+
+#nav_menu_of_bottom_panel{
+width: 100%;
+overflow: hidden; /*add this to clear below the floats*/
+height: 100%;
+}
+
+#nav_menu_of_bottom_panel li{
+margin: 0px 5%;
+cursor: pointer;
+padding: 3px 0% 3px 0%;
+text-align: center;
+height: 30px;
+width: 40%;
+float: left;
+}
+#nav_menu_of_bottom_panel li.selected{
+
+}
+
+#nav_menu_of_bottom_panel li.indicator_line{
+padding: 0px;
+position: absolute;
+width: 40%;
+left: 0%;
+bottom: 0px;
+height: 3px;
+background: #1d8ccd;
+float: none;
+-webkit-transition: .25s; /* Android 2.1+, Chrome 1-25, iOS 3.2-6.1, Safari 3.2-6  */
+-moz-transition: .25s;
+-o-transition: .25s;
+transition: .25s;  /* Chrome 26, Firefox 16+, iOS 7+, IE 10+, Opera, Safari 6.1+  */
+}
+.indicator_line.move_to_right{
+left: 50% !important;
+}
+
+
+.body_of_bottom_panel{
+position: absolute;
+top: 0px;
+left: 0px;
+width: 100%;
+height: 100%;
+overflow: hidden;
+}
+
+.carousel_container{
+position: absolute;
+top: 0px;
+left: 0px;
+width: 100%;
+height: 100%;
+overflow: auto;
+-webkit-transition: .25s; /* Android 2.1+, Chrome 1-25, iOS 3.2-6.1, Safari 3.2-6  */
+-moz-transition: .25s;
+-o-transition: .25s;
+transition: .25s;  /* Chrome 26, Firefox 16+, iOS 7+, IE 10+, Opera, Safari 6.1+  */
+}
+
+.carousel_container.right_container{
+left: 100%;
+}
+
+.move_container_to_left{
+  left: -100%;
+}
+
+.move_container_to_centre{
+  left: 0% !important;
+}
+
+/*The header of the bottom_panel (which is position absolute) has a full height of 66px therefore we will put
+padding of approx 76px on top of the contents of the body of the bottom_panel. */
+.inside_body_of_bottom_panel{
+position: relative;
+padding: 76px 0px 30px 0px;
+width: 100%;
+min-height: 500px;
+}
+
+.swipe_up{
+-webkit-transform: translateY(-87.5%); 
+-moz-transform: translateY(-87.5%); 
+-o-transform: translateY(-87.5%); 
+transform: translateY(-87.5%); 
+}
+
+#directions_form_area{
+position: relative;
+width: 96%;
+padding: 0% 2%;
+}
+
+.hide_directions_panel {
+height: 0px;
+opacity: 0;
+}
+
+#select_destination_area{
+padding-top: 6px;
+}
+
+#select_start_location, #select_destination{
+width:100%;  
+margin: 0px 0px 7px 0px;  
+position: relative;  
+overflow: hidden;
+}
+
+#select_start_location select, #select_destination select{
+width:99%;
+max-width: 100%;
+font-family: 'Raleway', sans-serif !important;
+font-size: .9rem;
+letter-spacing: .6px;
+padding: 4px 1%;
+border: 0;
+outline: 0;
+box-shadow: none;
+-moz-box-shadow: none;
+-webkit-box-shadow: none;
+height: 34px;
+border: 1px solid #ccc;
+}
+
+#select_start_location option{
+height: 34px;
+}
+
+
+.paragraph{
+padding: 0px 2%;
+width: 96%;
+}
+
+#directions_panel{
+position: relative;
+background: #fff;
+width: 96%;
+padding: 5px 1% 10px 1%;
+margin: 15px auto 10px auto;
+
+z-index: 3;
+overflow: hidden;
+
+}
+
+#directions_panel i {
+font-size: 22px;
+}
+
+.adp-substep{
+margin-right: 10px !important;
+padding-right: 2% !important;
+}
+
+/* Hide the little man icon on the google map because we dont want the user pressing it 
+ * as this functionality doesnt work very well on the phonegap app
+ */
+.gm-svpc{
+	display: none;
+}
+
+/* Hide the fullscreen button on the google map because if this is pressed
+ * it opens a new tab and the user will be unable to navigate back to the app when
+ * packaged with phonegap
+ */
+button[title *= "Toggle fullscreen" ]{
+	display: none;
+}

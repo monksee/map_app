@@ -1,0 +1,710 @@
+/**********************************************************
+* Author: Sarah Monks
+* 
+* CSS styling for general parts of the application
+*
+***********************************************************/
+
+/*reset all html elements to 0 margin and padding etc*/
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, address, em, img, q,small, strong, b, i,
+ol, ul, li,form, label, table, caption,tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video{
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    vertical-align:baseline;
+    background:transparent;
+}
+html{
+-webkit-tap-highlight-color: rgba(0,0,0,0); /*removes the highlight blue color when clicking on elements on mobile*/
+-webkit-text-size-adjust: 100%; /*stops the font from stretching on the iphone on orientation change*/
+height: 100%;
+overflow: auto;
+}
+
+/*remove the default list styling from all uls*/
+ul{
+list-style: none;
+}
+
+a{
+text-decoration: none; /*remove the underline from all anchor tags*/
+display: block;
+color: #515252;
+}
+
+body{
+position: relative;
+font-family: 'Raleway', sans-serif !important;
+color: #515252;
+line-height: 1.2rem;
+font-size: .9rem;
+letter-spacing: .4px; /*create a small space between each letter so the text is more readable*/
+width: 100%;
+height: 100%;
+overflow: auto;
+background: #fafafa;
+z-index: 1;
+}
+/**************************************/
+/*styling for heading tags*/
+h2{
+text-align: center;
+padding: 10px 0px 3px 0px;
+font-size: 1.1rem;
+}
+
+h3{
+text-align: left;
+letter-spacing: .9px !important;
+font-size: 1.1rem;
+}
+
+h4{
+letter-spacing: .9px !important;
+}
+
+
+/**************************************/
+/* styling for the container wrapper (where the main content will be) */
+#container_wrapper{
+position: absolute;
+left: 0px;
+top: 0px;
+width: 100%;
+height: 100%;
+background: #fafafa; 
+overflow: hidden;
+/* the container_wrapper div needs to have a higher z-index than the side panel area so that it sits on top of it*/
+z-index: 4; 
+/* add css transitions for when the container_wrapper is swiped to the left and right
+ * the swiping transition will take .3 seconds
+ */
+-webkit-transition: .3s; /* Android 2.1+, Chrome 1-25, iOS 3.2-6.1, Safari 3.2-6  */
+-moz-transition: .3s;
+-o-transition: .3s;
+transition: .3s;  /* Chrome 26, Firefox 16+, iOS 7+, IE 10+, Opera, Safari 6.1+  */
+/*put a drop shadow on the right so that when the side panel is open it looks like the main container sticks out*/
+-webkit-box-shadow: 2px 0px 4px 0px rgba(0, 0, 0, 0.5);
+-moz-box-shadow:    2px 0px 4px 0px rgba(0, 0, 0, 0.5);
+box-shadow:         2px 0px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+.container{
+position: relative;
+/* need a padding of around 50px at the top on the container because the fixed header of 48px doesnt register a height.
+ * also the padding on left and right is a total of 4% which when added to the width of 96% will equal 100%
+ */
+padding: 62px 0% 0px 0%; 
+
+width: 100%;
+
+}
+
+
+.intro_paragraph{
+width: 97%;
+text-align: center;
+padding: 5px 1% 2px 2%;
+}
+
+/*this class will be added to container_wrapper and header when the user opens the side panel using the ng-class directive*/
+.swipe_left{
+-webkit-transform: translateX(-80%); 
+-moz-transform: translateX(-80%);  
+-o-transform: translateX(-80%);  
+transform: translateX(-80%);
+}
+/*******************************************************/
+/*styling for side panel area */
+#panel_area{
+position:absolute; /*use position absolute so we can lay the container_wrapper div element over it*/
+top: 0px;
+left: 20%;
+height: 100%;
+width: 80%;
+overflow: auto; /*we use this instead of overflow scroll so that the scrollbar only shows if the content overflows the area*/
+-webkit-transition: .3s; /* Android 2.1+, Chrome 1-25, iOS 3.2-6.1, Safari 3.2-6  */
+-moz-transition: .3s;
+-o-transition: .3s;
+transition: .3s;  /* Chrome 26, Firefox 16+, iOS 7+, IE 10+, Opera, Safari 6.1+  */
+background: #fafafa; 
+z-index: 2; /*the z-index of this panel_area needs to be lower than the container_wrapper z-index so that it sits underneath it*/
+}
+.panel_container{
+position: relative; 
+overflow: hidden;
+}
+.panel_header{
+position: relative;
+width: 95%;
+padding: 4px 1% 0px 4%;
+font-weight: normal;
+background: #fafafa;
+-webkit-box-shadow: inset 2px 0px 4px 0px rgba(0, 0, 0, 0.5);
+-moz-box-shadow:    inset 2px 0px 4px 0px rgba(0, 0, 0, 0.5);
+box-shadow:         inset 2px 0px 4px 0px rgba(0, 0, 0, 0.5);
+overflow: hidden;
+min-height: 52px;
+}
+
+.panel_header .user_profile_pic{
+display: block;
+
+max-width: 20%;
+
+overflow: hidden;
+float: left;
+margin-right: 5px;
+}
+.panel_header .profile_pic_size{
+max-width: 100%;
+width: 50px !important;
+height: auto;
+}
+
+.panel_header .user_profile_name{
+font-size: .8rem !important;
+float: left;
+max-width: 75%;
+word-wrap: break-word;
+}
+
+/*styling for side panel menu*/
+.side_menu_item{
+width: 100%;
+}
+
+/*create a class to style the a tags within the side panel menu 
+ *as this is more efficient than targeting the a tags through DOM traversal*/
+.side_menu_link{
+width: 95%;
+padding: 14px 1% 14px 4%;
+display: block;
+cursor: pointer;
+color: rgba(0, 0, 0, .7); 
+text-shadow: 1px 1px 0px #fff, 0 0 0 #000;
+overflow: hidden;
+-webkit-box-shadow: inset 0px -1px 0px 0px rgba(162, 162,162);
+-moz-box-shadow:    inset 0px -1px 0px 0px rgba(162, 162,162,1);
+box-shadow:        inset 0px -1px 0px 0px rgba(162, 162,162, 1);
+}
+
+.side_menu_link:hover{
+color: #000;
+background: #c7c4c4; 
+}
+
+/*styling for the font-awesome arrow on the right side of the link*/
+.fa-chevron-right{
+font-size: 16px;
+color: #7b7b7b;
+text-shadow: -1px -1px 0px #fff, 0 0 0 #000;
+float: right;
+margin: 0px 9px 0px 0px;
+}
+
+/*styling for the arrow on the right when the link is hovered over or clicked on mobile*/
+.side_menu_link:hover .fa-chevron-right{
+color: #000;
+text-shadow: none;
+}
+
+/*styling for the icons that appear in the side panel menu list*/
+.panel_icon{
+font-size: 18px;
+padding-right: 10px;
+}
+
+
+
+/******************************************************/
+
+.view{
+min-height: 300px; /* need a min height so that the loading sign will appear as it is position absolute*/
+}
+.bottom_panel_container{
+position: absolute;
+left: 0px;
+top: 0px;
+width: 100%;
+height: 100%;
+background: #fafafa; 
+overflow: hidden;
+}
+
+.spinner{
+	position: absolute;
+    top: 40%;
+    left:45%;
+    z-index: 55;
+}
+.current_location_spinner{
+	position: absolute;
+    top: 8px;
+    left:180px;
+    z-index: 55;
+}
+.current_location_spinner .fa-cog{
+font-size: 17px;
+}
+#login_info_area{
+padding: 0px 0px 5px 0px;
+}
+#login_info_area .user_profile_name{
+    display: block;
+text-align: right;
+padding-right: 8px;
+}
+
+/******************************************************/
+/*styling for the scrollbar and scrolling functionality*/
+::-webkit-scrollbar{  
+padding: 0px;
+width: 0px;  
+background-color: #353535;
+}  
+
+::-webkit-scrollbar-track { 
+z-index: 400;
+border-radius: 2px; 
+background-color: #353535;  
+}  
+
+::-webkit-scrollbar-thumb{ /*styling for scrollbar thumb*/
+border-radius: 2px; 
+background-color: #939396; 
+}  
+::-webkit-scrollbar-thumb:hover {  
+background-color: #828282; 
+} 
+
+/*we need to add scrolling to the container_wrapper and to the side panel*/
+/*the following css transitions will create smooth scrolling on all modern devices*/
+
+.scrollable{
+overflow: auto !important;
+-webkit-transition-property: top, bottom;
+-moz-transition-property: top, bottom;
+-o-transition-property: top, bottom;
+transition-property: top, bottom;
+
+-webkit-transition-duration: .2s, .2s;
+-moz-transition-duration: .2s, .2s;
+-o-transition-duration: .2s, .2s;
+transition-duration: .2s, .2s;
+
+-webkit-transition-timing-function: linear, linear;
+-moz-transition-timing-function: linear, linear;
+-o-transition-timing-function: linear, linear;
+transition-timing-function: linear, linear;
+-webkit-overflow-scrolling: touch;
+}
+/*******************************************************/
+.user_profile_pic{
+display: block;
+max-height: 70px;
+max-width: 70px;
+overflow: hidden;
+}
+.profile_pic_size{
+width: 70px;
+height: 70px;
+}
+
+/**************************************/
+/*reusable styles*/
+.loading{
+	position: absolute;
+top: 130px;
+left: 0px;
+color: #1d8ccd;
+letter-spacing: .6px;
+width: 100%;
+z-index: 50 !important;
+text-align: center;
+
+font-size: 1.1rem;
+font-weight: bold;
+
+}
+
+
+.text_center{
+text-align: center;
+}
+.text_right{
+text-align: right;
+}
+.bold_text{
+font-weight: bold;
+}
+.text_shadow{
+text-shadow: -1px -1px 0px #000;
+}
+.red_text{
+color: #d60c40;
+}
+/*small print text*/
+.tiny_text{
+font-size: .8rem;
+color: #878787;
+
+padding: 3px 0px;
+}
+
+/*******************************************************/
+label{
+display:block;
+margin:4px 0px 4px 0px;
+color: #414141; /*off white color for the text*/
+padding: 5px 0px 0px 0px;
+z-index: 3;
+font-size: .9rem !important;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="tel"], .fake_input_field{
+border: 0px;
+outline: 0px;
+background:#fafafa;
+border:1px solid #c1c1c1;
+color:#414141;
+border-radius:4px;  /*opera*/
+-moz-border-radius:4px;/*firefox*/
+-webkit-border-radius:4px;/*chrome and safari*/
+
+width: 95% !important;
+padding: 3px 2%;
+height:30px;
+font-family: 'Raleway', FontAwesome; /*need to put font awesome here for the icons in the input fields */
+font-size: .9rem !important;
+display: block;
+letter-spacing: .7px; 
+box-shadow: none;
+-moz-box-shadow: none;
+-webkit-box-shadow: none;
+}
+
+
+textarea{
+
+margin: 0px auto;
+border: 0px;
+outline: 0px;
+background:#e6e7e7;
+border:1px solid #c1c1c1;
+color:#414141;
+border-radius:4px;  /*opera*/
+-moz-border-radius:4px;/*firefox*/
+-webkit-border-radius:4px;/*chrome and safari*/
+padding: 5px 2% 5px 2% !important;
+width: 95% !important;
+font-family: 'Raleway', FontAwesome; /*need to put font awesome here for the icons in the input fields */
+font-size: .9rem !important;
+display: block;
+letter-spacing: .7px; 
+box-shadow: none;
+-moz-box-shadow: none;
+-webkit-box-shadow: none;
+}
+
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="tel"]:focus, textarea:focus{
+overflow: visible;
+color: #000; 
+border:1px solid #29a2e6;
+box-shadow: inset 0px 0px 0px 100px #fff;
+-moz-box-shadow: inset 0px 0px 0px 100px #fff;
+-webkit-box-shadow: inset 0px 0px 0px 100px #fff;
+}
+
+
+input[type="button"], input[type="submit"]{
+-webkit-appearance: none !important;
+display: block;
+outline: 0 !important; 		/*override the default button outline*/
+border: 0;  		/*override the default button border*/
+
+}
+
+/*styling to prevent chrome's yellow colour input field after autocomplete*/
+input:-webkit-autofill {
+-webkit-box-shadow: inset 0px 0px 0px 100px #fafafa;
+}
+
+/*use this to divide different sections of our form so that we can clear any floats*/
+.form_divider{
+overflow: hidden;
+clear: both;
+padding-bottom: 5px;
+}
+
+/*use this error_message class for the error that we display to the user when the input is invalid*/
+.error_message{
+clear: both;
+width: 99%;
+color: #d60c40;
+}
+.input_field_error{
+border:1px solid #d60c40 !important;
+}
+.radio_button_input{
+    display: block;
+margin: 7px 0px 9px 0px;
+width: 70%;
+cursor: pointer;
+}
+/*********************************************/
+/*styling for our checkboxes in our to do list*/
+input[type="checkbox"]{
+display:none; /*hide the original checkbox so we can apply custom styling. see reference on Style a checkbox using css*/
+}
+
+.icon_button .fa-times{
+font-size: 25px; /*make the X symbol font 25px*/
+}
+
+/*styling for clock symbol displayed beside the day the task is due*/
+.fa-clock-o{
+font-size: 22px;
+} 
+
+/*create a class thats specifies zero padding for those columns that we don't want padding on*/
+.no_padding{
+padding: 0px !important;
+}
+
+
+input[type="checkbox"] + label span {
+    display:block;
+	float: left;
+    width:25px;
+    height:25px;
+    cursor:pointer;
+    font-size: 23px;
+    color: #515252;
+}
+
+/*we target the label immediately next to the checkbox using the css + selector*/
+/*we then target the span tag within that label tag*/
+/*this span tag will contain our font-awesome check icon so we set a font size here for the icon and a font color*/ 
+
+input[type="checkbox"]:checked + label span .fa-check-square-o{
+	font-size: 23px;
+}
+
+
+input[type="checkbox"] + label span .fa-check-square-o{
+    display:none;
+
+}
+input[type="checkbox"]:checked + label span .fa-square-o{
+    display:none;
+
+}
+/*the checked square icon will be displayed using the ng-class directive */
+
+input[type="checkbox"]:checked + label span .fa-check-square-o{
+    display:block;
+
+}
+
+/************************************************button styling**********************************************/
+.btn{
+position: relative;
+display: block;
+outline: 0; 		/*override the default button outline*/
+border: 0;  		/*override the default button border*/
+/*user border-radius to produce slightly rounded corners*/
+border-radius: 5px !important; 	
+-webkit-border-radius: 5px !important;  
+-moz-border-radius: 5px !important;     
+
+text-align: center;
+cursor: pointer;
+padding: 7px 15px;
+
+font-size: .9rem;
+font-weight: bold;
+letter-spacing: 1px;
+
+transition: all 0.2s ease;	
+z-index: 3;
+min-height: 37px;
+}
+
+.btn_blue {
+color: #f1f3f3;
+border: 2px solid #1d8ccd !important;
+background: #1d8ccd !important;
+}
+
+.btn_white{
+
+box-sizing: border-box;
+border: 2px solid #747474 !important;
+background: #f4f2f2 !important;
+}
+
+.btn_blue.btn_blue_text {
+color: #1d8ccd !important;
+}
+
+.btn_blue:hover, .btn_blue:active{
+background: #1d8ccd !important;
+color: #fff !important;
+border-color: #1d8ccd;
+box-shadow: 0px 0px 0px 2px #fff inset; 
+transition: all 0.2s ease;	
+}
+
+.btn_white:hover, .btn_white:active{
+background: #747474 !important;
+color: #fff !important;
+border-color: #747474;
+box-shadow: 0px 0px 0px 2px #fff inset; 
+transition: all 0.2s ease;	
+}
+
+
+.btn_float_right{
+float: right;
+}
+#scroll_down{
+margin-top: 20px;
+text-align: center;
+}
+.extra_margin{
+margin: 5px 8px;	
+
+}
+.btn_enter_app{
+width: 230px;
+margin: 30px auto 10px auto;
+font-size: 16px;
+}
+/* facebook login button*/
+.facebook-login-button{
+position: relative;
+display: block;
+outline: 0; 		/*override the default button outline*/
+border: 0;  		/*override the default button border*/
+border-radius: 2px; 	
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+-webkit-box-shadow:	0px 0px 0px 1px rgba(50, 73, 136, 1);
+-moz-box-shadow:	0px 0px 0px 1px rgba(50, 73, 136, 1);
+box-shadow: 		0px 0px 0px 1px rgba(50, 73, 136, 1);
+color: #fff; 
+background: #3d57a3;
+cursor: pointer;
+margin: 2px auto;
+z-index: 3;
+max-width: 100%;
+}
+
+
+.button_text{
+letter-spacing: .2px;
+font-weight: bold;
+text-shadow: -1px -1px 0px #26345a;
+font-size: 16px;
+-webkit-box-shadow: inset 1px 0px 0px 0px rgba(84, 115, 200,1);
+-moz-box-shadow:    inset 1px 0px 0px 0px rgba(84, 115, 200, 1);
+box-shadow:         inset 1px 0px 0px 0px rgba(84, 115, 200, 1);
+-webkit-box-shadow: inset 1px 0px 0px 0px rgba(90, 119, 200,1);
+-moz-box-shadow:    inset 1px 0px 0px 0px rgba(90, 119, 200, 1);
+box-shadow:         inset 1px 0px 0px 0px rgba(90, 119, 200, 1);
+padding: 10px 0px;
+display: block;
+text-align: center;
+width: 190px;
+height: 20px;
+float: left;
+}
+
+.facebook_button_icon{
+text-align: center;
+text-shadow: -1px -1px 0px #26345a;
+font-size: 24px;
+float: left;
+display: block;
+width: 40px;
+padding-top: 6px;
+height: 34px;
+-webkit-box-shadow: inset -1px 0px 0px 0px rgba(50, 73, 136, 1);
+-moz-box-shadow:    inset -1px 0px 0px 0px rgba(50, 73, 136, 1);
+box-shadow:         inset -1px 0px 0px 0px rgba(50, 73, 136, 1);
+}
+#login_buttons_area{
+padding: 0px 2%;
+width: 96%;
+
+}
+/**************************************************************/
+/*Font Awesome styles. See reference*/
+
+
+@font-face{
+font-family: 'Raleway';
+src:url("../fonts/Raleway.eot");
+src:url("../fonts/Raleway.eot?#iefix") format('embedded-opentype'),
+url("../fonts/Raleway.woff2") format("woff2"),
+url("../fonts/Raleway.woff") format('woff'),
+url("../fonts/Raleway.ttf") format('truetype'),
+url("../fonts/Raleway.svg#Raleway") format('svg');
+font-weight:400;
+font-style:normal;
+}
+
+
+
+/********************************************/
+/*spinning animation class used on our location page with our current location icon and our contact page with our refresh icon*/
+
+.fa-spinning {
+  -webkit-animation: spinning .5s infinite linear;
+  -moz-animation: spinning .5s infinite linear;
+  -o-animation: spinning .5s infinite linear;
+  animation: spinning .5s infinite linear;
+}
+
+
+@-moz-keyframes spinning{
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+  }
+}
+@-webkit-keyframes spinning{
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+  }
+}
+@-o-keyframes spinning{
+  0% {
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -o-transform: rotate(359deg);
+  }
+}
+@keyframes spinning{
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}

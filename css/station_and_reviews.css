@@ -1,0 +1,330 @@
+/**********************************************************
+* Author: Sarah Monks
+* 
+* CSS styling for the stations and reviews
+*
+***********************************************************/
+
+h3.station_name{
+text-align: left;
+}
+
+#station_info_area{
+	position: relative;
+	z-index: 20;
+margin: 20px 0px;
+padding: 0px 4%;
+width: 92%;
+}
+
+
+.reply_form_area{
+border-top: 1px solid #bdbebf;
+margin-top: 15px;
+padding-top: 20px;
+}
+
+.reply_form_area textarea{
+margin-bottom: 7px;
+
+}
+#station_reviews_area{
+padding: 0px 4%;
+width: 92%;
+margin: 30px 0px 20px 0px;
+
+}
+#station_reviews_area h3{
+padding-bottom: 5px;
+border-bottom: 2px solid #727272;
+text-align: left;
+font-size: 1.0rem;
+}
+
+
+h4#average_rating_heading{
+padding-top: 10px;
+
+}
+.number_of_ratings{
+font-size: .9rem;
+letter-spacing: .9px; 
+}
+
+#no_reviews_message{
+padding: 15px 0px 5px 0px;
+
+}
+#write_a_review_button_area{
+padding: 8px 0px 10px 0px;
+min-height: 22px;
+overflow: hidden;
+}
+#write_a_review_button{
+
+}
+.write_a_review_note{
+padding-top: 10px;
+
+}
+
+#write_a_review_form_area{
+background: #f3f2f2;
+margin: 0px 0px 35px 0px;
+width: 93%;
+padding: 10px 3%;
+border: 1px solid #bdbebf;
+border-radius:4px;  /*opera*/
+-moz-border-radius:4px;/*firefox*/
+-webkit-border-radius:4px;/*chrome and safari*/
+}
+
+.message_for_user{
+	opacity: 0;
+font-weight: bold;
+color: #1d8ccd;
+-webkit-transition-property: opacity;
+-moz-transition-property: opacity;
+-o-transition-property: opacity;
+transition-property: opacity;
+
+-webkit-transition-duration: .5s;
+-moz-transition-duration: .5s;
+-o-transition-duration: .5s;
+transition-duration: .5s;
+}
+
+.full_opacity{
+opacity: 1;
+
+}
+.review_form_user_name, .review_form_rating{
+margin: 10px 0px 4px 0px;
+padding-top: 10px;
+}
+.review_form_stars{
+padding-top: 0px;
+overflow: hidden;
+}
+.review_form_stars i:not(.fa-check-circle){
+	cursor: pointer;
+color: #1d8ccd;
+padding: 5px 4px 0px 4px;
+font-size: 24px;
+}
+#list_of_station_reviews{
+margin-top: 0px;
+}
+.station_review{
+position: relative;
+width: 100% !important;
+overflow: hidden;
+font-size: .9rem !important;
+margin-top: 0px !important;
+margin-bottom: 30px !important;
+border-top: 2px solid #bdbebf;
+padding-bottom: 15px;
+}
+
+
+
+.main_user_review, .review_reply{
+margin-bottom: 13px;
+overflow: hidden;
+
+}
+.review_reply{
+position: relative;
+border-top: 1px solid #bdbebf;
+
+}
+
+
+/*this is for the profile image thumbnail that appears on the left side of the review*/
+/*profile pictures will be square so create a small square area here*/
+.profile_pic_thumbnail{
+padding: 0px;
+margin:5px 8px 0px 5px;
+width: 50px;
+height: 50px;
+overflow: hidden;
+display: block;
+float: left;
+}
+/*image has max-width of 100% so it will shrink to fit area*/
+.profile_pic_thumbnail img{
+max-width: 100%;
+height: auto;
+}
+
+
+/*this is the name of the user who posted a review*/
+.user_name{
+font-size: .9rem;
+margin: 0px 0px 2px 0px;
+padding-top: 5px;
+font-weight: bold !important;
+width:80%;
+font-family: 'Raleway Bold', sans-serif !important;
+color: #3d57a3;
+
+}
+
+
+p.date_of_review_or_reply{
+margin: 0px !important;
+font-size: .8rem !important;
+color: #7c7c7c;
+}
+
+/*this is the text within the review*/
+/*it will reside under the profile picture and also users name */
+.review_text, .reply_text{
+padding: 4px 0px 0px 5px;
+clear:both;
+}
+
+.rating_star_area{
+	padding: 8px 0px 3px 3px;
+	clear:both;
+
+}
+
+
+.rating_star_area .fa-star, .rating_star_area .fa-star-o, .rating_star_area .fa-star-half-o{
+
+color: #1d8ccd;
+font-size: 14px;
+}
+.average_rating_star_area .fa-star, .average_rating_star_area .fa-star-o, .average_rating_star_area .fa-star-half-o{
+font-size: 16px;
+}
+
+
+button, input[type="button"]{
+outline: 0; 		/*override the default button outline*/
+border: 0 !important;  		/*override the default button border*/
+-webkit-box-shadow: 	none !important;
+-moz-box-shadow: 	none !important;
+box-shadow: 		none !important;
+border: none !important; 
+
+}
+/*this is the styling of a container for the small buttons that appear within a review or reply*/
+.review_area_button{
+outline: 0; 		/*override the default button outline*/
+border: 0 !important;  		/*override the default button border*/
+-webkit-box-shadow: 	none !important;
+-moz-box-shadow: 	none !important;
+box-shadow: 		none !important;
+border: none !important; 
+padding-right: 0px;
+padding-left: 5px;
+display: block;
+position: absolute;
+top: 4px;
+right: 0px;
+width: 18px;
+height: 25px;
+color: rgba(111, 111, 111, .8); 
+text-shadow: 1px 1px 0px #fff, 0 0 0 #000;
+cursor: pointer;
+font-size: 18px;
+font-family: Raleway, FontAwesome; /*need to put font awesome here for the icons in the input fields */
+}
+
+/*this is the pencil button that appears within a review or reply*/
+.edit_button{
+right: 22px;
+width: 22px;
+}
+
+.cancel_button{
+position: absolute;
+top: 4px;
+right: 7px;
+cursor: pointer;
+font-weight: bold;
+
+}
+
+
+.list_of_replies{
+padding-left: 45px;
+
+
+}
+
+
+/*form styles*/
+/*use this error_message class for the error that we display to the user when the input is invalid*/
+.error_message{
+color: #d60c40;
+}
+/*styling for displaying what the user types in the new task input field.*/
+.new_task{
+float: left;
+display: block;
+min-height: 20px; /*create a minium height so that the page doesnt look like it jumps when this section is empty*/
+padding: 8px 1% 0px 0%;
+width: 79%;
+color: #04ffeb;
+}
+
+/*styling for the feedback icon which we will display to the user to show if their input is valid in a particular field*/
+.feedback_icon{
+width: 24px;
+height: 24px;
+max-width: 20%;
+}
+
+.feedback_icon i{
+
+font-size: 22px;
+}
+
+.feedback_icon.under_textarea i{
+padding: 2px 3px 0px 3px;
+
+}
+/*red color text for the X symbol which is displayed when the input is not valid*/
+.feedback_icon .fa-times-circle{
+
+color: #d60c40 !important;
+
+}
+/*green text for the check symbol which is displayed when input is valid*/
+.feedback_icon .fa-check-circle{
+color: #14ba24;
+}
+
+
+/*make the background of the input field red when the input is invalid on blur*/
+.review_form textarea.ng-invalid.ng-touched{
+
+border:1px solid #d60c40;
+}
+.user_profile_area{
+overflow:hidden;
+
+}
+.edit_reply_form_area{
+padding-top: 15px;
+
+}
+
+.small_break_between_paragraphs{
+display: block;
+height: 3px;
+}
+
+.character_count_container{
+min-height: 30px;
+
+}
+
+.btn_cancel{
+margin-right: 10px;
+
+}
+

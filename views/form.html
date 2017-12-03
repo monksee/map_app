@@ -1,0 +1,12 @@
+    <form name="reply_form" id="reply_form" class="reviews_form" data-ng-submit="submitReply(currentReview.reviewID)" data-ng-model="reply_form.$index" novalidate>
+
+            <div class="form_divider">
+
+                <textarea id="reply_text" name="reply_text" data-ng-model="reply.text.$index" maxlength="2000" placeholder="Write your reply here..."  rows="4" required></textarea>
+       
+            </div><!--/form_divider-->
+
+            <div class="form_divider">
+                <input class="btn btn_blue btn_float_right" type="submit" value="Submit" />
+            </div>
+        </form>

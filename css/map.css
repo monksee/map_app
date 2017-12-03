@@ -1,0 +1,77 @@
+/**********************************************************
+* Author: Sarah Monks
+* 
+* CSS styling for the map 
+*
+***********************************************************/
+#map_area{
+position: relative;
+
+}
+
+#map{
+position: relative;
+margin: 0px auto;
+height: 450px;
+z-index: 7;
+width:96%;
+}
+
+#map_error, #map_is_loading{
+position: absolute;
+top: 0px;
+left: 2%;
+height: 450px;
+width: 96%;
+background: #c1c5cc;
+}
+
+#map_error{
+z-index: 8;	
+}
+#map_is_loading{
+z-index: 6;
+}
+
+#map_is_loading .fa-spinner, #map_is_loading .fa-circle-o-notch{
+   font-size: 30px; 
+}
+.map_area_text{
+position: relative;
+text-align: center;
+padding-top: 80px;
+font-size: 1.1rem;
+font-weight: bold;
+}
+
+#refresh_map_button{
+position: relative;
+margin: 10px auto;
+width: 32px;
+height: 32px;
+cursor: pointer;
+}
+
+#refresh_map_button .fa-refresh{
+font-size: 30px;
+}
+
+.hide_element {
+height: 0px;
+opacity: 0;
+}
+.info_window_button_area{
+padding-top: 10px;
+max-width: 150px;
+}
+.info_window_button{
+max-width: 100%;
+display: block;
+margin: 10px 0px !important;
+cursor: pointer;
+border: 2px solid #747474 !important;
+}
+.info_window .station_name{
+font-size: 1.0rem !important;
+}
+

@@ -1,0 +1,86 @@
+/**********************************************************
+* Author: Sarah Monks
+* 
+* CSS styling for header navigation menu
+*
+***********************************************************/
+
+header{
+width: 100%;
+display: block;
+
+}
+
+.header_nav{   	
+background: #1d8ccd;
+position: fixed;
+top: 0px;
+left: 0px;
+width: 100%; 
+/*add a high z-index value so that this fixed header stays on top of everything else on the page*/ 
+z-index: 60; 
+/*add css transitions for when the headernav is swiped to the left and right*/
+/*the swiping transition will take .3 seconds*/
+-webkit-transition: .3s; /* Android 2.1+, Chrome 1-25, iOS 3.2-6.1, Safari 3.2-6  */
+-moz-transition: .3s;
+-o-transition: .3s;
+transition: .3s;  /* Chrome 26, Firefox 16+, iOS 7+, IE 10+, Opera, Safari 6.1+  */
+overflow: hidden; /*add this to clear below the floats*/
+height: 54px;
+-webkit-box-shadow: inset 0px -2px 0px 0px rgba(4, 114,169);
+-moz-box-shadow:    inset 0px -2px 0px 0px rgba(4, 114,169,1);
+box-shadow:        inset 0px -2px 0px 0px rgba(4,114,169, 1);
+}
+
+.header_menu_item{
+position: relative; 
+float: left; 
+width: 20%;
+height: 100%;
+}
+
+.header_menu_item.navicon{
+float: right; 
+}
+
+/*for centre company logo*/
+.header_menu_item.logo_list_item{
+width: 40%;
+float: left; 
+margin-left: 16%;
+}
+
+/*the following class is applied to the anchor tags in the header navigation*/
+.header_menu_link{
+position: relative;
+display:block;  
+padding: 18px 0px 0px 0px;
+text-align: center;
+width: 100%;
+height: 100%;
+font-size: 22px;
+color: rgba(23, 27, 30, .8) !important; 
+text-shadow: 1px 1px 0px #2e9fe1, 0 0 0 #000;
+cursor: pointer;
+-webkit-box-sizing:	border-box;
+-moz-box-sizing:	border-box; 
+box-sizing:		border-box;
+}
+
+
+.header_menu_link.logo_link{
+padding-top: 4px;
+margin: 0 auto;
+}
+
+.header_menu_link.logo_link, .small_logo_link img{
+width: 94px;
+max-width: 80%;
+height: auto;
+margin: 0 auto;
+}
+
+
+.header_menu_link.current, .header_menu_link:active{
+color: #fff !important;
+}
