@@ -42,7 +42,7 @@ window.mapsCallback = function () {
 <body data-ng-controller="mainController">
 	<!--use the html5 header tag-->
 	<header>
-		<ul class="header_nav" data-ng-class="{'swipe_left': panelIsOpen == true}" data-ng-show="!detectLoginView()">
+		<ul class="header_nav" data-ng-class="{'swipe_left': panelIsOpen == true, 'hide_element': detectLoginView()}" data-ng-show="!detectLoginView()">
 			<li class="header_menu_item" data-ng-click="goBack()">
 				<span id="back_header_link" class="header_menu_link normal_link"><i class="fa fa-arrow-left"></i></span>
 			</li>
@@ -86,7 +86,7 @@ window.mapsCallback = function () {
         </div> 
         <!--When we are on the "home" route (i.e when the map is displayed), the view will act as a container for our bottom panel-->
 	    <div data-ng-view class="view" data-ng-class="{'bottom_panel_container': detectHomeView()}">
-	    
+
 			<!--our individual views will be displayed here-->
 		</div> 
 	</div><!--/container_wrapper-->
